@@ -1,9 +1,11 @@
 '''
 @Author: Sueño (Swen) Keijer
-@Date: 16-01-2023
+@Date: 18-01-2023
 @Description:
-    _PART 2: Moderators Screen
-    
+    _PART 2: Moderators Screen_
+    In dit programma gaat de moderator te werk.
+    Er zijn functie's geschreven om de database aan te maken, te lezen en in te schrijven
+    Vervolgens zijn er 2 main routines geschreven: de login en de reviews keuren
 '''
 
 # ---------------------------IMPORTS---------------------------
@@ -14,14 +16,10 @@ from datetime import datetime
 
 # ---------------------------FUNCTIONS---------------------------
 
-
+'''
+Maak een connectie met de database
+'''
 def makeConnection():
-    """
-    Maakt verbinding met de database en maakt de standaard tabellen aan, mits
-    deze nog niet bestaan.
-
-    :returns De database verbinding
-    """
     conn = psycopg2.connect(
         dbname='projA',
         user='postgres',
@@ -41,14 +39,10 @@ def makeConnection():
                 "BOOLEAN NOT NULL, datum TIMESTAMP NOT NULL, moderator_email VARCHAR(255) REFERENCES moderator); "
     )
     
-    # conn.commit()
-    # print(cur.fetchall())
-    
     return conn
 
 def closeConnection(conn):
-    conn.close()
-    
+    conn.close()    
     
 def uploadReviews(conn):
     try:
@@ -76,10 +70,6 @@ def uploadReviews(conn):
         print("ERROR: Geen bestand met reviews gevonden")
 
 def downloadReviews(conn):
-    '''
-    Return lijst met tuples, waarin alle nog niet beoordeelde reviews in staan
-    '''
-    
     cur = conn.cursor()
     cur.execute(
         "SELECT * "
@@ -89,11 +79,7 @@ def downloadReviews(conn):
     )
     return cur.fetchall()
 
-def getModeratorName(conn, email):
-    '''
-    Searches through moderator table for email, if found, return the name of moderator
-    '''
-    
+def getModeratorName(conn, email):   
     cur = conn.cursor()
     cur.execute("SELECT naam FROM moderator "
                 "WHERE moderator.email = %s;", [email])

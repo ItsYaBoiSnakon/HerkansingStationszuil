@@ -40,7 +40,7 @@ while True:
     if len(bericht.strip()) == 0:
         print("ERROR: u hebt niks ingevoerd. Probeer opnieuw.")
     
-    review = "{},{},Zaandam,{}\n".format(bericht, getName(), getDate())
+    review = "{},{},{},{}\n".format(bericht, getName(), pickRandomStation(), getDate())
     
     csvFile = open('reviews.csv', 'a')
     csvFile.write(review)

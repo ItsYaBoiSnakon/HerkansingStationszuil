@@ -1,8 +1,10 @@
 """
 @Author: Sueño (Swen) Keijer
-@Date: 16-01-2023
+@Date: 20-01-2023
 @Description:
-    
+    _PART 3: NS Screen_
+    In dit programma wordt het scherm gemaakt. 
+    Het scherm leest de reviews op de server die goedgekeurd zijn, laat de 5 meest recente zien, en daarbij het weerbericht van nu ook
 """
 
 # ---------------------------IMPORTS---------------------------
@@ -85,7 +87,7 @@ class welcomeScreen:
         )
         self.submit = Button(
             self.container,
-            text="Select",
+            text="Selecteer",
             command=self.submit_station
         )
         
@@ -155,9 +157,6 @@ class InfoScherm:
         temperatuur = int(self.weerbericht["main"]["temp"]) - 273  # Kelvin naar Celsius
         weerbericht = self.weerbericht["weather"][0]
 
-
-        # self.weerbericht_icon = Label(self.weerbericht_container)
-        # self.weerbericht_icon.grid(column=0, row=0, rowspan=2)
         self.weerbericht_temp = Label(
             self.weerbericht_container,
             text="{}°".format(temperatuur),
@@ -227,21 +226,21 @@ class InfoScherm:
             review_container = Frame(self.reviews_container)
             review_container.grid(column=len(self.reviews_list) % 2, columnspan=1, row=(len(self.reviews_list) // 2)+1, sticky=NW, pady=5)
 
-            review_bericht = Label(
+            review_message = Label(
                 review_container,
                 text=review[0],
                 font=("Arial Black", 14),
                 wraplength=200,
                 justify=LEFT
             )
-            review_bericht.grid(row=0, column=0, sticky=W)
-            review_naam = Label(
+            review_message.grid(row=0, column=0, sticky=W)
+            review_name = Label(
                 review_container,
-                text=f"- {review[1]}",
+                text="{}".format(review[1]),
                 font=("Arial Black", 12, "italic"),
                 justify=LEFT
             )
-            review_naam.grid(row=1, column=0, sticky=W)
+            review_name.grid(row=1, column=0, sticky=W)
 
             self.reviews_list.append(review)
 
